@@ -48,6 +48,15 @@
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaZkgCtSjidcEHBglUKx-pu-r-PvPUHrw
   &libraries=places&callback=initMap"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then(function () {
+          console.log("Service Worker Registered");
+        });
+    }
+  </script>
 
 </body>
 
