@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <header>
+  <header tabindex="0">
     <nav>
       <h1>
         <a href="/">Restaurant Reviews</a>
@@ -17,9 +17,9 @@
     </nav>
   </header>
 
-  <main id="maincontent">
+  <main id="maincontent" tabindex="0">
     <section id="map-container">
-      <div id="map"></div>
+      <div id="map" role="application"></div>
     </section>
     <section>
       <form class="filter-options">
@@ -37,7 +37,7 @@
     </section>
   </main>
 
-  <footer id="footer">
+  <footer id="footer" tabindex="0">
     Copyright (c) 2017
     <a href="/">
       <strong>Restaurant Reviews</strong>
