@@ -15,7 +15,7 @@ class DBHelper {
   /**
    * Fetch all restaurants.
    */
-  static fetchRestaurants(callback) {
+  static fetchRestaurantsAPI(callback) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.DATABASE_URL);
     xhr.onload = () => {
@@ -31,6 +31,16 @@ class DBHelper {
     xhr.send();
   }
 
+  static fetchRestaurants(callback) {
+    dbPromise.then(db => {
+      return db.transaction('restaurants')
+        .objectStore('restaurants').getAll();
+    }).then(restaurantData => {
+      const restaurants = restaurantData;
+      callback(null, restaurants);
+      console.log(allRestaurants);
+    });
+  }
   /**
    * Fetch a restaurant by its ID.
    */
@@ -144,7 +154,7 @@ class DBHelper {
    */
   static fetchAllRestaurants(callback) {
     // Fetch all restaurants
-    DBHelper.fetchRestaurants((error, restaurants) => {
+    DBHelper.fetchRestaurantsAPI((error, restaurants) => {
       if (error) {
         callback(error, null);
       } else {

@@ -333,17 +333,23 @@ function getAllRestaurants() {
   }, 500 );
 }
 
+const dbPromise = idb.open('restaurants-db', 1, upgradeDB => {
+  var store = upgradeDB.createObjectStore('restaurants', {
+    keyPath: 'id'
+  });
+});
+
+
 function createDB(allRestaurants) {
-  idb.open('restaurants-db', 1, function(upgradeDB) {
 
-    var store = upgradeDB.createObjectStore('restaurants', {
-      keyPath: 'id'
-    });
-
+  dbPromise.then(db => {
+    const tx = db.transaction('restaurants', 'readwrite');
     allRestaurants.forEach(restaurant => {
-      store.put(restaurant);
+      tx.objectStore('restaurants').put(restaurant);
     });
+    return tx.complete;
   });
 }
+
 
 getAllRestaurants();
