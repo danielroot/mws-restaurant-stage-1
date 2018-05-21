@@ -140,6 +140,21 @@ class DBHelper {
   }
 
   /**
+   * Fetch all Restaurants with proper error handling.
+   */
+  static fetchAllRestaurants(callback) {
+    // Fetch all restaurants
+    DBHelper.fetchRestaurants((error, restaurants) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        // Get all restaurants
+        const allRestaurants = restaurants;
+        callback(null, allRestaurants);
+      }
+    });
+  }
+  /**
    * Restaurant page URL.
    */
   static urlForRestaurant(restaurant) {
